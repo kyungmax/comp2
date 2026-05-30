@@ -1,0 +1,297 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R] /Count 2 /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Roman /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Italic /Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 5179 >>
+stream
+BT /F1 10 Tf 1 0 0 1 72.00 738.00 Tm (Computing for Data Science 2) Tj ET
+BT /F1 10 Tf 1 0 0 1 490.24 738.00 Tm (2026 Spring) Tj ET
+q 0.4 w 72.00 734.00 m 540.00 734.00 l S Q
+BT /F2 20 Tf 1 0 0 1 224.70 694.00 Tm (Lab Assignment 3) Tj ET
+BT /F1 11 Tf 1 0 0 1 239.22 679.00 Tm (Due May 10, 2026 at 23:59:59) Tj ET
+BT /F2 13 Tf 1 0 0 1 72.00 648.00 Tm (1  Objective) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 629.50 Tm (The purpose of this lab is to implement a ) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 256.82 629.50 Tm (streamed tiled convolution) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 382.51 629.50 Tm ( routine that uses both CUDA) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 72.00 614.50 Tm (streams) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 110.99 614.50 Tm ( \(with pinned host memory\) and ) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 258.66 614.50 Tm (shared memory) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 331.96 614.50 Tm ( for on-chip tiling.) Tj ET
+BT /F2 13 Tf 1 0 0 1 72.00 577.00 Tm (2  Instructions) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 558.50 Tm (The code template in ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 168.33 558.50 Tm (template_convolution.cu) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 313.23 558.50 Tm ( provides the skeleton with basic import/export, variable) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 543.50 Tm (declaration and stream setup. Students are expected to insert their code demarcated with ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 473.45 543.50 Tm (//@@ INSERT) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 72.00 528.50 Tm (CODE HERE) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 128.70 528.50 Tm (. Specifically, you should:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 507.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 507.50 Tm (Allocate device memory) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 490.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 490.50 Tm (Allocate pinned buffers for the input and output image) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 473.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 473.50 Tm (Create and configure multiple cudaStream_t streams) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 456.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 456.50 Tm (Partition the image into row-segments per stream) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 439.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 439.50 Tm (Asynchronously copy each segment of the pinned input image to device) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 422.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 422.50 Tm (Initialize thread block and grid dimensions) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 405.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 405.50 Tm (Invoke the CUDA kernel on each stream with the per-stream rowOffset) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 388.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 388.50 Tm (Asynchronously copy each computed segment back to the pinned output buffer) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 371.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 371.50 Tm (Synchronize streams and copy from pinned output to host image data) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 354.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 354.50 Tm (Free all device, pinned, and stream resources) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 337.50 Tm (\225) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 104.00 337.50 Tm (Write the CUDA kernel using __shared__ memory to load a tile per channel) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 316.50 Tm (A basic convolution algorithm is provided in the kernel; you may modify and extend it as needed. The) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 301.50 Tm (shared-memory tile is a \(TILE_WIDTH + Mask_width - 1\) x \(TILE_WIDTH + Mask_width - 1\) buffer per) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 286.50 Tm (channel, sized so that all halo pixels needed by one block are loaded once.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 265.50 Tm (Compile the template with the provided ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 250.71 265.50 Tm (Makefile) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 301.11 265.50 Tm (. The executable generated as a result of compilation) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 250.50 Tm (can be run using the following command:) Tj ET
+BT /F3 9.5 Tf 1 0 0 1 82.00 230.50 Tm (./Convolution_template -e <expected.ppm> \\) Tj ET
+BT /F3 9.5 Tf 1 0 0 1 82.00 216.50 Tm (    -i <input0.ppm>,<input1.raw> \\) Tj ET
+BT /F3 9.5 Tf 1 0 0 1 82.00 202.50 Tm (    -o <output.ppm> -t image) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 183.50 Tm (where ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 102.64 183.50 Tm (<expected.ppm>) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 190.84 183.50 Tm ( is the expected output, ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 297.39 183.50 Tm (<input0.ppm>,<input1.raw>) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 454.89 183.50 Tm ( are the input image and 5 x 5) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 168.50 Tm (mask, and ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 120.42 168.50 Tm (<output.ppm>) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 196.02 168.50 Tm ( is an optional path to store the results.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 147.50 Tm (You can also simply compile and run the code using the helper script:) Tj ET
+BT /F3 9.5 Tf 1 0 0 1 82.00 127.50 Tm (bash test.sh -dataset <number>) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 108.50 Tm (All GPU compilation and execution must be performed on a compute node via SLURM. Activate the conda) Tj ET
+BT /F1 10 Tf 1 0 0 1 303.50 48.00 Tm (1) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 4722 >>
+stream
+BT /F1 10 Tf 1 0 0 1 72.00 738.00 Tm (Computing for Data Science 2) Tj ET
+BT /F1 10 Tf 1 0 0 1 490.24 738.00 Tm (2026 Spring) Tj ET
+q 0.4 w 72.00 734.00 m 540.00 734.00 l S Q
+BT /F1 10.5 Tf 1 0 0 1 72.00 709.50 Tm (environment first, then prefix every nvcc/run command with ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 344.11 709.50 Tm (srun -p class2 -N 1 --gres=gpu:1) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 545.71 709.50 Tm (. The login) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 694.50 Tm (node has no GPU.) Tj ET
+BT /F3 9.5 Tf 1 0 0 1 82.00 674.50 Tm (conda activate comp2) Tj ET
+BT /F3 9.5 Tf 1 0 0 1 82.00 660.50 Tm (srun -p class2 -N 1 --gres=gpu:1 <command>) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 72.00 641.50 Tm (README.md) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 128.70 641.50 Tm ( has details on how to build ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 253.37 641.50 Tm (libgputk) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 303.77 641.50 Tm ( and ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 324.77 641.50 Tm (template_convolution.cu) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 469.67 641.50 Tm (, as well as how to) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 626.50 Tm (generate the input datasets with the provided ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 276.10 626.50 Tm (dataset_generator_convolution) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 458.80 626.50 Tm (.) Tj ET
+BT /F2 13 Tf 1 0 0 1 72.00 589.00 Tm (3  What to Turn in) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 570.50 Tm (Submit a ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 114.62 570.50 Tm (report.pdf) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 177.62 570.50 Tm ( with your ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 225.22 570.50 Tm (template_convolution.cu) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 370.12 570.50 Tm ( and program execution logs \() Tj ET
+BT /F3 10.5 Tf 1 0 0 1 502.92 570.50 Tm (.log) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 528.12 570.50 Tm ( files\) as a) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 555.50 Tm (compressed ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 128.89 555.50 Tm (20xx-xxxxx.tar.gz) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 235.99 555.50 Tm ( file. Your report should include the following:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 534.50 Tm (1.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 534.50 Tm (How many floating point operations are being performed by your kernel per output pixel?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 516.50 Tm (2.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 516.50 Tm (A brief explanation of how you partitioned the image and configured streams.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 498.50 Tm (3.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 498.50 Tm (An analysis of how pinned host memory and streams overlap data transfer and compute.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 480.50 Tm (4.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 480.50 Tm (Describe what further optimizations can be implemented to your kernel to achieve a performance) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 465.50 Tm (speedup.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 447.50 Tm (5.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 447.50 Tm (Explanation about your version of ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 244.95 447.50 Tm (template_convolution.cu) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 389.85 447.50 Tm ( including the convolution kernel.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 429.50 Tm (6.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 429.50 Tm (Execution times of the kernel with the provided input data. Please include the system information) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 414.50 Tm (where you performed your evaluation and output the program execution log to ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 440.23 414.50 Tm (.log) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 465.43 414.50 Tm ( files. For time) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 399.50 Tm (measurement, use ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 179.20 399.50 Tm (gpuTKTime_start) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 273.70 399.50 Tm ( and ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 294.70 399.50 Tm (gpuTKTime_stop) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 382.90 399.50 Tm ( functions \(details in) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 94.00 384.50 Tm (libgputk/README.md) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 207.40 384.50 Tm (\).) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 366.50 Tm (7.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 366.50 Tm (Measured execution times \(use ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 235.84 366.50 Tm (gpuTKTime_start/stop) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 361.84 366.50 Tm (\) at dataset 6 for: \(a\) varying number of) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 351.50 Tm (streams: 1, 2, 4, 8; \(b\) varying tile widths: 8, 16, 24, 32. Present results in a table or plot, and) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 336.50 Tm (include system specifications and program execution logs. You can use ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 414.51 336.50 Tm (bash test.sh -dataset 6) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 559.41 336.50 Tm ( for) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 321.50 Tm (simpler testing.) Tj ET
+BT /F1 10 Tf 1 0 0 1 303.50 48.00 Tm (2) Tj ET
+endstream
+endobj
+xref
+0 11
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000220 00000 n 
+0000000319 00000 n 
+0000000417 00000 n 
+0000000512 00000 n 
+0000000612 00000 n 
+0000000675 00000 n 
+0000005906 00000 n 
+0000005970 00000 n 
+trailer
+<< /Size 11 /Root 1 0 R /Info << /Title (Lab 3 -- Tiled Convolution with Streams and Pinned Memory) /Author (SNU GSDS) /Producer (gen-pdf.py) >> >>
+startxref
+10745
+%%EOF
+7 0 obj
+<< /Parent 2 0 R /Type /Page /Rotate 0 /Annots 11 0 R /Contents 8 0 R >>
+endobj
+9 0 obj
+<< /Parent 2 0 R /Type /Page /Rotate 0 /Contents 10 0 R >>
+endobj
+11 0 obj
+[ 12 0 R 18 0 R ]
+endobj
+12 0 obj
+<< /T (Kyungmin Kim) /AP << /N 13 0 R >> /Rect [ 225.6005 402.875 404.9195
+413.375 ] /M (D:20260508192316Z00'00') /C [ 0.980392 0.803922 0.352941 ] /DA
+(//Helvetica 12 Tf 0 g) /F 4 /Type /Annot /Border [ 0 0 0 ] /QuadPoints [
+225.6005 413.375 404.9195 413.375 225.6005 402.875 404.9195 402.875 ] /Subtype
+/Highlight >>
+endobj
+13 0 obj
+<< /Length 148 /Type /XObject /FormType 1 /Resources 14 0 R /Subtype /Form
+/Filter /FlateDecode /BBox [ 0 0 179.319 10.5 ] >> stream
+x5N;Â0İ{Šw7vjRÏÌ8@,€Tr	Çm)yÏÎûìØ°#ùáb”ÙÀ‰¿îøb¾6FmHdkÊ&âí «ØÂhóÍ½Ú” $Š›_ƒ))Œ… zL!ñ˜˜¿®$—“
+]=]wÔËÄî|ª"a8©‘ĞÍ{~yµĞ+Øş|T2Y
+endstream
+endobj
+14 0 obj
+<< /ColorSpace << /Cs1 15 0 R >> /ProcSet [ /PDF ] /ExtGState << /Gs1 17 0 R
+>> >>
+endobj
+15 0 obj
+[ /ICCBased 16 0 R ]
+endobj
+16 0 obj
+<< /Alternate /DeviceRGB /Length 2612 /Filter /FlateDecode /N 3 >> stream
+x–wTSÙ‡Ï½7½Ğ" %ôz	 Ò;HQ‰I€P†„&vDF)VdTÀG‡"cEƒ‚b×	òPÆÁQDEåİŒk	ï­5óŞšıÇYßÙç·×Ùgï}×º Pü‚ÂtX€4¡XîëÁ\ËÄ÷XÀáffGøDÔü½=™™¨HÆ³öî.€d»Û,¿P&sÖÿ‘"7C$ 
+EÕ6<~&å”S³Å2ÿÊô•)2†12¡	¢¬"ãÄ¯lö§æ+»É˜—&ä¡YÎ¼4Œ»PŞš%á£Œ¡\˜%àg£|e½TIš å÷(ÓÓøœL 0™_Ìç&¡l‰2Eî‰ò ”Ä9¼r‹ù9h x¦gäŠ‰Ib¦×˜iåèÈfúñ³Sùb1+”ÃMáˆxLÏô´0€¯o–E%Ym™h‘í­ííYÖæhù¿Ùß~Sı=ÈzûUñ&ìÏAŒYßlì¬/½ ö$Z›³¾•U ´m@åá¬Oï  ò ´Şœó†l^’Äâ'‹ììlsŸk.+è7ûŸ‚oÊ¿†9÷™ËîûV;¦?#I3eEå¦§¦KDÌÌ—Ïdı÷ÿãÀ9iÍÉÃ,œŸÀñ…èUQè”	„‰h»…<X.d
+„Õá6'~khu_ }…9P¸IÈo= C#$n?z}ë[1
+È¾¼h­‘¯s2zşçú\ŠnáLA"Sæödr%¢,£ß„lÁt 
+4.0,`€3pŞ  „€H–.Hi@²A>Ø 
+A1Øvƒjp ÔzĞN‚6p\WÀp€G@
+†ÁK0Şi‚ğ¢Aª¤™BÖZyCAP8ÅC‰’@ùĞ&¨*ƒª¡CP=ô#tº]ƒú Ğ 4ı}„˜ÓaØ ¶€Ù°;GÂËàDxœÀÛáJ¸>·Âáğ ,…_Â“@ÈÑFXñDBX$!k‘"¤©Eš¤¹H‘qä‡¡a˜Æã‡YŒábVaÖbJ0Õ˜c˜VLæ6f3ù‚¥bÕ±¦X'¬?v	6›-ÄV``[°—±Øaì;ÇÀâp~¸\2n5®·×Œ»€ëÃá&ñx¼*Şï‚Ásğb|!¾
+ßÆ¿'	Zk‚!– $l$Tçı„Â4Q¨Ot"†yÄ\b)±ØA¼I&N“I†$R$)™´TIj"]&=&½!“É:dGrY@^O®$Ÿ _%’?P”(&OJEBÙN9J¹@y@yC¥R¨nÔXª˜ºZO½D}J}/G“3—ó—ãÉ­“«‘k•ë—{%O”×—w—_.Ÿ'_!Jş¦ü¸QÁ@ÁS£°V¡Fá´Â=…IEš¢•bˆbšb‰bƒâ5ÅQ%¼’’·O©@é°Ò%¥!BÓ¥yÒ¸´M´:ÚeÚ0G7¤ûÓ“éÅôè½ô	e%e[å(ååå³ÊRÂ0`ø3R¥Œ“Œ»Œó4æ¹ÏãÏÛ6¯i^ÿ¼)•ù*n*|•"•f••ªLUoÕÕªmªOÔ0j&jajÙjûÕ.«Ï§ÏwÏ_4ÿäü‡ê°º‰z¸újõÃê=ê“š¾U—4Æ5šnšÉšåšç4Ç´hZµZåZçµ^0•™îÌTf%³‹9¡­®í§-Ñ>¤İ«=­c¨³Xg£N³Î]’.[7A·\·SwBOK/X/_¯Qï¡>QŸ­Ÿ¤¿G¿[ÊÀĞ Ú`‹A›Á¨¡Š¡¿aa£ác#ª‘«Ñ*£Z£;Æ8c¶qŠñ>ã[&°‰I’IÉMSØÔŞT`ºÏ´Ïkæh&4«5»Ç¢°ÜYY¬FÖ 9Ã<È|£y›ù+=‹X‹İ_,í,S-ë,Y)YXm´ê°úÃÚÄšk]c}Ç†jãc³Î¦İæµ­©-ßv¿í};š]°İ»N»Ïöö"û&û1=‡x‡½÷Øtv(»„}Õëèá¸ÎñŒã'{'±ÓI§ßYÎ)ÎÎ£ğÔ-rÑqá¸r‘.d.Œ_xp¡ÔUÛ•ãZëúÌM×çvÄmÄİØ=Ùı¸û+K‘G‹Ç”§“çÏ^ˆ—¯W‘W¯·’÷bïjï§>:>‰>>¾v¾«}/øaııvúİó×ğçú×ûO8¬	è
+¤FV>2	uÃÁÁ»‚/Ò_$\ÔBüCv…<	5]ús.,4¬&ìy¸Ux~xw-bEDCÄ»HÈÒÈG‹KwFÉGÅEÕGME{E—EK—X,Y³äFŒZŒ ¦={$vr©÷ÒİK‡ãìâ
+ãî.3\–³ìÚrµå©ËÏ®_ÁYq*ßÿ‰Â©åL®ô_¹wå×“»‡û’çÆ+çñ]øeü‘—„²„ÑD—Ä]‰cI®IIãOAµàu²_òä©””£)3©Ñ©Íi„´ø´ÓB%aŠ°+]3='½/Ã4£0CºÊiÕîU¢@Ñ‘L(sYf»˜şLõHŒ$›%ƒY³j²ŞgGeŸÊQÌæôäšänËÉóÉû~5f5wug¾vş†üÁ5îk­…Ö®\Û¹Nw]Áºáõ¾ëm mHÙğËFËeßnŠŞÔQ Q°¾`h³ïæÆB¹BQá½-Î[lÅllíİf³­jÛ—"^ÑõbËâŠâO%Ü’ëßY}WùİÌö„í½¥ö¥ûwàvwÜİéºóX™bY^ÙĞ®à]­åÌò¢ò·»Wì¾Va[q`id´2¨²½J¯jGÕ§ê¤êšæ½ê{·íÚÇÛ×¿ßmÓÅ>¼È÷Pk­AmÅaÜá¬ÃÏë¢êº¿g_DíHñ‘ÏG…G¥ÇÂuÕ;Ô×7¨7”6Â’Æ±ãqÇoıàõC{«éP3£¹ø8!9ñâÇøï<ÙyŠ}ªé'ıŸö¶ĞZŠZ¡ÖÜÖ‰¶¤6i{L{ßé€ÓÎ-?›ÿ|ôŒö™š³ÊgKÏ‘Îœ›9Ÿw~òBÆ…ñ‹‰‡:Wt>º´äÒ®°®ŞË—¯^ñ¹r©Û½ûüU—«g®9];}}½í†ıÖ»–_ì~iéµïm½ép³ı–ã­¾}çú]û/Şöº}åÿ‹úî.¾{ÿ^Ü=é}ŞıÑ©^?Ìz8ıhıcìã¢'
+O*ª?­ıÕø×f©½ôì ×`Ï³ˆg†¸C/ÿ•ù¯OÃÏ©Ï+F´FêG­GÏŒùŒİz±ôÅğËŒ—Óã…¿)ş¶÷•Ñ«Ÿ~wû½gbÉÄğkÑë™?JŞ¨¾9úÖömçdèäÓwiï¦§ŠŞ«¾?öı¡ûcôÇ‘éìOøO•Ÿ?w|	üòx&mfæß÷„óû
+endstream
+endobj
+17 0 obj
+<< /Type /ExtGState /BM /Multiply >>
+endobj
+18 0 obj
+<< /T (Kyungmin Kim) /AP << /N 19 0 R >> /Rect [ 164.442 283.875 383.724 294.375
+] /M (D:20260508192905Z00'00') /C [ 0.980392 0.803922 0.352941 ] /DA (//Helvetica 12 Tf 0 g)
+/F 4 /Type /Annot /Border [ 0 0 0 ] /QuadPoints [ 164.442 294.375 383.724
+294.375 164.442 283.875 383.724 283.875 ] /Subtype /Highlight >>
+endobj
+19 0 obj
+<< /Length 147 /Type /XObject /FormType 1 /Resources 20 0 R /Subtype /Form
+/Filter /FlateDecode /BBox [ 0 0 219.282 10.5 ] >> stream
+x5N;Ã İsŠw›X¹CçL= j»¤•Rî/Õƒß3~Ÿ.{Â™$	8â÷Ä_¬·Ê(r
+1‹ŸD•¼1jÁz·«w]”Dñ1³İ¾Á™6…wP,f'¶ßŸFItVhêe÷lº^/›ßPyÂttb‡–åğì£a«æºÑ°à…ãaB2
+endstream
+endobj
+20 0 obj
+<< /ColorSpace << /Cs1 21 0 R >> /ProcSet [ /PDF ] /ExtGState << /Gs1 23 0 R
+>> >>
+endobj
+21 0 obj
+[ /ICCBased 22 0 R ]
+endobj
+22 0 obj
+<< /Alternate /DeviceRGB /Length 2612 /Filter /FlateDecode /N 3 >> stream
+x–wTSÙ‡Ï½7½Ğ" %ôz	 Ò;HQ‰I€P†„&vDF)VdTÀG‡"cEƒ‚b×	òPÆÁQDEåİŒk	ï­5óŞšıÇYßÙç·×Ùgï}×º Pü‚ÂtX€4¡XîëÁ\ËÄ÷XÀáffGøDÔü½=™™¨HÆ³öî.€d»Û,¿P&sÖÿ‘"7C$ 
+EÕ6<~&å”S³Å2ÿÊô•)2†12¡	¢¬"ãÄ¯lö§æ+»É˜—&ä¡YÎ¼4Œ»PŞš%á£Œ¡\˜%àg£|e½TIš å÷(ÓÓøœL 0™_Ìç&¡l‰2Eî‰ò ”Ä9¼r‹ù9h x¦gäŠ‰Ib¦×˜iåèÈfúñ³Sùb1+”ÃMáˆxLÏô´0€¯o–E%Ym™h‘í­ííYÖæhù¿Ùß~Sı=ÈzûUñ&ìÏAŒYßlì¬/½ ö$Z›³¾•U ´m@åá¬Oï  ò ´Şœó†l^’Äâ'‹ììlsŸk.+è7ûŸ‚oÊ¿†9÷™ËîûV;¦?#I3eEå¦§¦KDÌÌ—Ïdı÷ÿãÀ9iÍÉÃ,œŸÀñ…èUQè”	„‰h»…<X.d
+„Õá6'~khu_ }…9P¸IÈo= C#$n?z}ë[1
+È¾¼h­‘¯s2zşçú\ŠnáLA"Sæödr%¢,£ß„lÁt 
+4.0,`€3pŞ  „€H–.Hi@²A>Ø 
+A1Øvƒjp ÔzĞN‚6p\WÀp€G@
+†ÁK0Şi‚ğ¢Aª¤™BÖZyCAP8ÅC‰’@ùĞ&¨*ƒª¡CP=ô#tº]ƒú Ğ 4ı}„˜ÓaØ ¶€Ù°;GÂËàDxœÀÛáJ¸>·Âáğ ,…_Â“@ÈÑFXñDBX$!k‘"¤©Eš¤¹H‘qä‡¡a˜Æã‡YŒábVaÖbJ0Õ˜c˜VLæ6f3ù‚¥bÕ±¦X'¬?v	6›-ÄV``[°—±Øaì;ÇÀâp~¸\2n5®·×Œ»€ëÃá&ñx¼*Şï‚Ásğb|!¾
+ßÆ¿'	Zk‚!– $l$Tçı„Â4Q¨Ot"†yÄ\b)±ØA¼I&N“I†$R$)™´TIj"]&=&½!“É:dGrY@^O®$Ÿ _%’?P”(&OJEBÙN9J¹@y@yC¥R¨nÔXª˜ºZO½D}J}/G“3—ó—ãÉ­“«‘k•ë—{%O”×—w—_.Ÿ'_!Jş¦ü¸QÁ@ÁS£°V¡Fá´Â=…IEš¢•bˆbšb‰bƒâ5ÅQ%¼’’·O©@é°Ò%¥!BÓ¥yÒ¸´M´:ÚeÚ0G7¤ûÓ“éÅôè½ô	e%e[å(ååå³ÊRÂ0`ø3R¥Œ“Œ»Œó4æ¹ÏãÏÛ6¯i^ÿ¼)•ù*n*|•"•f••ªLUoÕÕªmªOÔ0j&jajÙjûÕ.«Ï§ÏwÏ_4ÿäü‡ê°º‰z¸újõÃê=ê“š¾U—4Æ5šnšÉšåšç4Ç´hZµZåZçµ^0•™îÌTf%³‹9¡­®í§-Ñ>¤İ«=­c¨³Xg£N³Î]’.[7A·\·SwBOK/X/_¯Qï¡>QŸ­Ÿ¤¿G¿[ÊÀĞ Ú`‹A›Á¨¡Š¡¿aa£ác#ª‘«Ñ*£Z£;Æ8c¶qŠñ>ã[&°‰I’IÉMSØÔŞT`ºÏ´Ïkæh&4«5»Ç¢°ÜYY¬FÖ 9Ã<È|£y›ù+=‹X‹İ_,í,S-ë,Y)YXm´ê°úÃÚÄšk]c}Ç†jãc³Î¦İæµ­©-ßv¿í};š]°İ»N»Ïöö"û&û1=‡x‡½÷Øtv(»„}Õëèá¸ÎñŒã'{'±ÓI§ßYÎ)ÎÎ£ğÔ-rÑqá¸r‘.d.Œ_xp¡ÔUÛ•ãZëúÌM×çvÄmÄİØ=Ùı¸û+K‘G‹Ç”§“çÏ^ˆ—¯W‘W¯·’÷bïjï§>:>‰>>¾v¾«}/øaııvúİó×ğçú×ûO8¬	è
+¤FV>2	uÃÁÁ»‚/Ò_$\ÔBüCv…<	5]ús.,4¬&ìy¸Ux~xw-bEDCÄ»HÈÒÈG‹KwFÉGÅEÕGME{E—EK—X,Y³äFŒZŒ ¦={$vr©÷ÒİK‡ãìâ
+ãî.3\–³ìÚrµå©ËÏ®_ÁYq*ßÿ‰Â©åL®ô_¹wå×“»‡û’çÆ+çñ]øeü‘—„²„ÑD—Ä]‰cI®IIãOAµàu²_òä©””£)3©Ñ©Íi„´ø´ÓB%aŠ°+]3='½/Ã4£0CºÊiÕîU¢@Ñ‘L(sYf»˜şLõHŒ$›%ƒY³j²ŞgGeŸÊQÌæôäšänËÉóÉû~5f5wug¾vş†üÁ5îk­…Ö®\Û¹Nw]Áºáõ¾ëm mHÙğËFËeßnŠŞÔQ Q°¾`h³ïæÆB¹BQá½-Î[lÅllíİf³­jÛ—"^ÑõbËâŠâO%Ü’ëßY}WùİÌö„í½¥ö¥ûwàvwÜİéºóX™bY^ÙĞ®à]­åÌò¢ò·»Wì¾Va[q`id´2¨²½J¯jGÕ§ê¤êšæ½ê{·íÚÇÛ×¿ßmÓÅ>¼È÷Pk­AmÅaÜá¬ÃÏë¢êº¿g_DíHñ‘ÏG…G¥ÇÂuÕ;Ô×7¨7”6Â’Æ±ãqÇoıàõC{«éP3£¹ø8!9ñâÇøï<ÙyŠ}ªé'ıŸö¶ĞZŠZ¡ÖÜÖ‰¶¤6i{L{ßé€ÓÎ-?›ÿ|ôŒö™š³ÊgKÏ‘Îœ›9Ÿw~òBÆ…ñ‹‰‡:Wt>º´äÒ®°®ŞË—¯^ñ¹r©Û½ûüU—«g®9];}}½í†ıÖ»–_ì~iéµïm½ép³ı–ã­¾}çú]û/Şöº}åÿ‹úî.¾{ÿ^Ü=é}ŞıÑ©^?Ìz8ıhıcìã¢'
+O*ª?­ıÕø×f©½ôì ×`Ï³ˆg†¸C/ÿ•ù¯OÃÏ©Ï+F´FêG­GÏŒùŒİz±ôÅğËŒ—Óã…¿)ş¶÷•Ñ«Ÿ~wû½gbÉÄğkÑë™?JŞ¨¾9úÖömçdèäÓwiï¦§ŠŞ«¾?öı¡ûcôÇ‘éìOøO•Ÿ?w|	üòx&mfæß÷„óû
+endstream
+endobj
+23 0 obj
+<< /Type /ExtGState /BM /Multiply >>
+endobj
+xref
+0 1
+0000000000 65535 f 
+7 1
+0000011153 00000 n 
+9 1
+0000011241 00000 n 
+11 13
+0000011315 00000 n 
+0000011349 00000 n 
+0000011684 00000 n 
+0000011992 00000 n 
+0000012091 00000 n 
+0000012128 00000 n 
+0000014841 00000 n 
+0000014894 00000 n 
+0000015223 00000 n 
+0000015530 00000 n 
+0000015629 00000 n 
+0000015666 00000 n 
+0000018379 00000 n 
+trailer
+<< /ID [<><0DF5D9D31390BDF765A66AE53F9ABD76> ] /Root 1 0 R /Size 24 /Prev 10745 /Info << /Producer (gen-pdf.py)
+/Author (SNU GSDS) /Title (Lab 3 -- Tiled Convolution with Streams and Pinned Memory)
+>> >> 
+startxref
+18432
+%%EOF

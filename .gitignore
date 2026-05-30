@@ -1,0 +1,30 @@
+# Build directories
+build/
+**/build/
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Generated binaries and compiler outputs
+*.o
+*.a
+*.out
+*.bin
+*.fatbin
+*.cubin
+*.ptx
+*_template
+*_Template
+dataset_generator
+dataset_generator_convolution
+dataset_generator_matmul
+dataset_generator_vecadd
+
+# Generated test outputs and logs
+test_result*
+prob*_run_log/
+
+# Local editor/OS files
+.DS_Store
+.omc/

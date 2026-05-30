@@ -1,0 +1,179 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R] /Count 2 /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Roman /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Times-Italic /Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 6010 >>
+stream
+BT /F1 10 Tf 1 0 0 1 72.00 738.00 Tm (Computing for Data Science 2) Tj ET
+BT /F1 10 Tf 1 0 0 1 490.24 738.00 Tm (2026 Spring) Tj ET
+q 0.4 w 72.00 734.00 m 540.00 734.00 l S Q
+BT /F2 20 Tf 1 0 0 1 224.70 694.00 Tm (Lab Assignment 2) Tj ET
+BT /F1 11 Tf 1 0 0 1 238.60 679.00 Tm (Due Apr. 30, 2026 at 23:59:59) Tj ET
+BT /F2 13 Tf 1 0 0 1 72.00 648.00 Tm (1  Objective) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 629.50 Tm (The purpose of this lab is to extend Lab 1's tiled dense matrix multiplication to a ) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 433.53 629.50 Tm (batched) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 470.64 629.50 Tm ( setting using) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 72.00 614.50 Tm (shared memory) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 145.30 614.50 Tm (. Given two batches of matrices A of shape \(batch, M, K\) and B of shape \(batch, K, N\),) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 599.50 Tm (you will implement a CUDA kernel that computes C[b] = A[b] * B[b] for every b, exposing ) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 465.30 599.50 Tm (batch-level) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 72.00 584.50 Tm (parallelism) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 125.29 584.50 Tm ( through the z-dimension of the CUDA grid.) Tj ET
+BT /F2 13 Tf 1 0 0 1 72.00 547.00 Tm (2  Instructions) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 528.50 Tm (The code template in ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 168.33 528.50 Tm (template.cu) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 237.63 528.50 Tm ( provides a starting point and handles the import and export as well as) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 513.50 Tm (the checking of the solution. Students are expected to insert their code demarcated with ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 466.75 513.50 Tm (//@@) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 491.95 513.50 Tm (. Students) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 498.50 Tm (are expected to leave the other code unchanged.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 477.50 Tm (Edit the skeleton code to perform the following:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 456.50 Tm (\225) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 104.00 456.50 Tm (Extract batch, M, K, N from the 4x1 dims vector \(input2.raw\)) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 439.50 Tm (\225) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 104.00 439.50 Tm (Allocate host and device memory for the batched matrices) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 422.50 Tm (\225) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 104.00 422.50 Tm (Copy host memory to device) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 405.50 Tm (\225) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 104.00 405.50 Tm (Initialize 3D grid and 2D block dimensions \(use blockIdx.z for batch\)) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 388.50 Tm (\225) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 104.00 388.50 Tm (Invoke the batched CUDA kernel) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 371.50 Tm (\225) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 104.00 371.50 Tm (Copy results from device to host) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 354.50 Tm (\225) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 104.00 354.50 Tm (Free device memory) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 92.00 337.50 Tm (\225) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 104.00 337.50 Tm (Write the batched tiled CUDA kernel using shared memory) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 316.50 Tm (Compile the template with the provided ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 250.71 316.50 Tm (Makefile) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 301.11 316.50 Tm (. The executable generated as a result of compilation) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 301.50 Tm (can be run using the following command:) Tj ET
+BT /F3 9.5 Tf 1 0 0 1 82.00 281.50 Tm (./BatchedMatMul_template -e <expected.raw> \\) Tj ET
+BT /F3 9.5 Tf 1 0 0 1 82.00 267.50 Tm (    -i <input0.raw>,<input1.raw>,<input2.raw> \\) Tj ET
+BT /F3 9.5 Tf 1 0 0 1 82.00 253.50 Tm (    -o <output.raw> -t matrix) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 234.50 Tm (where ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 102.64 234.50 Tm (<expected.raw>) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 190.84 234.50 Tm ( is the expected output, ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 297.39 234.50 Tm (<input0.raw>) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 372.99 234.50 Tm ( and ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 393.99 234.50 Tm (<input1.raw>) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 469.59 234.50 Tm ( are the stacked A and B) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 219.50 Tm (matrices, ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 117.27 219.50 Tm (<input2.raw>) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 192.87 219.50 Tm ( is the 4x1 dims vector \(batch, M, K, N\) stored with header ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 456.45 219.50 Tm (4 1) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 475.35 219.50 Tm (, and ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 499.27 219.50 Tm (<output.raw>) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 204.50 Tm (is an optional path to store the results.) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 72.00 183.50 Tm (README.md) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 128.70 183.50 Tm ( has details on how to build ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 253.37 183.50 Tm (libgputk) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 303.77 183.50 Tm (, ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 309.31 183.50 Tm (template.cu) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 378.61 183.50 Tm (, and the dataset generator.) Tj ET
+BT /F2 10.5 Tf 1 0 0 1 72.00 162.50 Tm (Input format reminder.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 177.89 162.50 Tm ( The dataset generator writes the batch/M/K/N dimensions into ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 464.86 162.50 Tm (input2.raw) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 527.86 162.50 Tm ( as a) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 147.50 Tm (4x1 column vector \(header line ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 212.99 147.50 Tm (4 1) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 231.89 147.50 Tm (\). Reading ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 280.92 147.50 Tm (input2.raw) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 343.92 147.50 Tm ( with ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 369.62 147.50 Tm (gpuTKImport\(..., &rows, &cols\)) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 558.62 147.50 Tm ( returns) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 132.50 Tm (rows=4, cols=1. Cast the four float entries to int: ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 290.75 132.50 Tm (data[0]=batch, data[1]=M, data[2]=K, data[3]=N) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 580.55 132.50 Tm (.) Tj ET
+BT /F1 10 Tf 1 0 0 1 303.50 48.00 Tm (1) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 3295 >>
+stream
+BT /F1 10 Tf 1 0 0 1 72.00 738.00 Tm (Computing for Data Science 2) Tj ET
+BT /F1 10 Tf 1 0 0 1 490.24 738.00 Tm (2026 Spring) Tj ET
+q 0.4 w 72.00 734.00 m 540.00 734.00 l S Q
+BT /F2 13 Tf 1 0 0 1 72.00 693.00 Tm (3  What to Turn in) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 674.50 Tm (Submit a ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 114.62 674.50 Tm (report.pdf) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 177.62 674.50 Tm ( with your ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 225.22 674.50 Tm (template.cu) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 294.52 674.50 Tm ( as compressed ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 367.16 674.50 Tm (20xx-xxxxx.tar.gz) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 474.25 674.50 Tm ( file. Your report should) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 659.50 Tm (include the following:) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 638.50 Tm (1.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 638.50 Tm (How many floating point operations are being performed by your batched kernel?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 620.50 Tm (2.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 620.50 Tm (How many global memory reads are being performed by your kernel?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 602.50 Tm (3.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 602.50 Tm (How many global memory writes are being performed by your kernel?) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 584.50 Tm (4.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 584.50 Tm (Describe what further optimizations can be implemented to your kernel to achieve a performance) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 569.50 Tm (speedup.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 551.50 Tm (5.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 551.50 Tm (Explanation about your version of ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 244.95 551.50 Tm (template.cu) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 314.25 551.50 Tm (.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 533.50 Tm (6.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 533.50 Tm (Execution times of the kernel on the correctness datasets \(0-8\) generated by the dataset generator) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 518.50 Tm (\(in a table or graph\). Please include the system information where you performed your evaluation.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 503.50 Tm (For time measurement, use ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 220.08 503.50 Tm (gpuTKTime_start) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 314.58 503.50 Tm ( and ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 335.58 503.50 Tm (gpuTKTime_stop) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 423.78 503.50 Tm ( functions \(details in) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 94.00 488.50 Tm (libgputk/README.md) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 207.40 488.50 Tm (\).) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 72.00 470.50 Tm (7.) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 470.50 Tm (Batch-level parallelism experiment. The dataset generator also produces datasets 9-14 with fixed) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 455.50 Tm (per-batch size 64x64x64 and batch = 1, 2, 4, 8, 16, 32. Measure kernel execution time on each of) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 440.50 Tm (these six datasets and report batch size vs kernel time \(table or graph\). Discuss how the batched) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 94.00 425.50 Tm (kernel \(using ) Tj ET
+BT /F3 10.5 Tf 1 0 0 1 155.90 425.50 Tm (blockIdx.z) Tj ET
+BT /F1 10.5 Tf 1 0 0 1 218.90 425.50 Tm (\) scales with batch count and at what point the GPU saturates.) Tj ET
+BT /F1 10 Tf 1 0 0 1 303.50 48.00 Tm (2) Tj ET
+endstream
+endobj
+xref
+0 11
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000220 00000 n 
+0000000319 00000 n 
+0000000417 00000 n 
+0000000512 00000 n 
+0000000612 00000 n 
+0000000675 00000 n 
+0000006737 00000 n 
+0000006801 00000 n 
+trailer
+<< /Size 11 /Root 1 0 R /Info << /Title (Lab 2 -- Batched Tiled Matrix Multiplication) /Author (SNU GSDS) /Producer (gen-pdf.py) >> >>
+startxref
+10149
+%%EOF
