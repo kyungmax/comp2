@@ -67,6 +67,8 @@ std::vector<SearchResult> search_layer0(
 
 std::vector<NodeId> top_level_seeds(const UpperLayerGraph& graph, std::size_t max_count);
 
+NodeId best_entry_point_from_descent(const std::vector<DescentResult>& descents);
+
 std::vector<NodeId> entry_points_from_descent(const std::vector<DescentResult>& descents);
 
 }  // namespace hnsw_week2

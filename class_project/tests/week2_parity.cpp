@@ -202,12 +202,19 @@ void check_cpu_path(const UpperLayerGraph& graph, const std::vector<float>& quer
                 hnsw_week2::entry_points_from_descent(descents);
             const std::vector<SearchResult> approximate =
                 hnsw_week2::search_layer0(graph, query, entry_points, 24, 5);
+            const std::vector<NodeId> best_entry = {
+                hnsw_week2::best_entry_point_from_descent(descents)};
+            const std::vector<SearchResult> best_entry_approximate =
+                hnsw_week2::search_layer0(graph, query, best_entry, 24, 5);
             const std::vector<NodeId> exact = exact_knn(graph, query, 5);
             const double recall = recall_at(approximate, exact);
+            const double best_entry_recall = recall_at(best_entry_approximate, exact);
             assert(!approximate.empty());
-            std::cout << "cpu q=" << q << " K=" << k
+            assert(!best_entry_approximate.empty());
+            std::cout << "cpu q=" << q << " entry_count=" << k
                       << " best_ep_dist=" << best_distance
-                      << " recall@5=" << recall << '\n';
+                      << " all_entry_recall@5=" << recall
+                      << " best_entry_recall@5=" << best_entry_recall << '\n';
         }
     }
 }
@@ -221,10 +228,14 @@ void check_gpu_path(const UpperLayerGraph& graph, const std::vector<float>& quer
     const std::vector<NodeId> seeds = interleaved_top_seeds(graph);
     const std::size_t query_count = queries.size() / graph.dim;
 
-    for (std::size_t k : {std::size_t{1}, std::size_t{4}, std::size_t{16}}) {
+    for (std::size_t k : {std::size_t{1}, std::size_t{4}, std::size_t{16}, std::size_t{40}}) {
+        std::vector<NodeId> seeds_for_k(k);
+        for (std::size_t i = 0; i < k; ++i) {
+            seeds_for_k[i] = seeds[i % seeds.size()];
+        }
         std::vector<NodeId> batched_seeds(query_count * k);
         for (std::size_t q = 0; q < query_count; ++q) {
-            std::copy_n(seeds.begin(), k, batched_seeds.begin() + q * k);
+            std::copy_n(seeds_for_k.begin(), k, batched_seeds.begin() + q * k);
         }
 
         const std::vector<DescentResult> gpu_descents =
@@ -234,7 +245,7 @@ void check_gpu_path(const UpperLayerGraph& graph, const std::vector<float>& quer
         for (std::size_t q = 0; q < query_count; ++q) {
             const float* query = queries.data() + q * graph.dim;
             const std::vector<DescentResult> cpu_descents =
-                hnsw_week2::cpu_kway_upper_descent(graph, query, seeds, k);
+                hnsw_week2::cpu_kway_upper_descent(graph, query, seeds_for_k, k);
 
             for (std::size_t i = 0; i < k; ++i) {
                 const DescentResult& cpu = cpu_descents[i];
@@ -246,18 +257,30 @@ void check_gpu_path(const UpperLayerGraph& graph, const std::vector<float>& quer
 
             const std::vector<NodeId> cpu_entries =
                 hnsw_week2::entry_points_from_descent(cpu_descents);
+            const std::vector<NodeId> cpu_best_entry = {
+                hnsw_week2::best_entry_point_from_descent(cpu_descents)};
             const std::vector<DescentResult> gpu_slice(
                 gpu_descents.begin() + q * k,
                 gpu_descents.begin() + (q + 1) * k);
             const std::vector<NodeId> gpu_entries =
                 hnsw_week2::entry_points_from_descent(gpu_slice);
+            const std::vector<NodeId> gpu_best_entry = {
+                hnsw_week2::best_entry_point_from_descent(gpu_slice)};
             const std::vector<SearchResult> cpu_results =
                 hnsw_week2::search_layer0(graph, query, cpu_entries, 24, 5);
             const std::vector<SearchResult> gpu_results =
                 hnsw_week2::search_layer0(graph, query, gpu_entries, 24, 5);
+            const std::vector<SearchResult> cpu_best_entry_results =
+                hnsw_week2::search_layer0(graph, query, cpu_best_entry, 24, 5);
+            const std::vector<SearchResult> gpu_best_entry_results =
+                hnsw_week2::search_layer0(graph, query, gpu_best_entry, 24, 5);
             assert(cpu_results.size() == gpu_results.size());
             for (std::size_t i = 0; i < cpu_results.size(); ++i) {
                 assert(cpu_results[i].node == gpu_results[i].node);
+            }
+            assert(cpu_best_entry_results.size() == gpu_best_entry_results.size());
+            for (std::size_t i = 0; i < cpu_best_entry_results.size(); ++i) {
+                assert(cpu_best_entry_results[i].node == gpu_best_entry_results[i].node);
             }
         }
     }

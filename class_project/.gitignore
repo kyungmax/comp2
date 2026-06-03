@@ -1,0 +1,5 @@
+build/
+data/
+.pydeps/
+scripts/__pycache__/
+*.pyc

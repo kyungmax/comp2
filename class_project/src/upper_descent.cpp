@@ -283,6 +283,21 @@ std::vector<NodeId> top_level_seeds(const UpperLayerGraph& graph, std::size_t ma
     return seeds;
 }
 
+NodeId best_entry_point_from_descent(const std::vector<DescentResult>& descents) {
+    if (descents.empty()) {
+        throw std::invalid_argument("at least one descent result is required");
+    }
+
+    const auto best = std::min_element(
+        descents.begin(),
+        descents.end(),
+        [](const DescentResult& lhs, const DescentResult& rhs) {
+            if (lhs.entry_distance == rhs.entry_distance) return lhs.entry_point < rhs.entry_point;
+            return lhs.entry_distance < rhs.entry_distance;
+        });
+    return best->entry_point;
+}
+
 std::vector<NodeId> entry_points_from_descent(const std::vector<DescentResult>& descents) {
     std::vector<NodeId> entries;
     entries.reserve(descents.size());

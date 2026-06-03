@@ -6,29 +6,35 @@ This folder contains the Week 2 implementation for the proposal:
 
 The course project document asks for a CUDA/data-parallel implementation with functionality, performance evidence, code quality, and a final report. The proposal's Week 2 target is:
 
-- CPU K-way multi-entry upper-layer descent from Week 1.
-- GPU K-way upper-layer descent kernel.
+- CPU multi-entry upper-layer descent from Week 1.
+- GPU upper-layer descent kernel for `entry_count` candidate entries.
 - One block per query, one warp per descent.
-- Verify GPU/CPU parity for `K in {1, 4, 16}`.
+- Verify GPU/CPU parity for `entry_count in {1, 4, 16}`.
+
+Terminology used in experiment logs:
+
+- `result_k`: final nearest-neighbor count used by recall@k.
+- `entry_count`: number of upper-layer entry candidates tried before selecting the best handoff entry.
+- `upper_window`: number of highest HNSW layers included in the upper-layer candidate pool.
 
 ## What Is Implemented
 
 - `include/hnsw_week2/upper_descent.hpp`
   - HNSW-like CSR graph representation for levels `0..max_level`.
   - CPU greedy upper-layer descent equivalent to hnswlib's top-layer search.
-  - CPU K-way multi-entry descent.
-  - Layer-0 beam search that accepts the deduplicated K entry points.
+  - CPU multi-entry descent over `entry_count` upper-layer candidates.
+  - Layer-0 beam search that accepts the deduplicated entry points.
 
 - `src/gpu_upper_descent.cu`
-  - CUDA K-way upper-layer descent.
-  - Launch mapping: `grid.x = query_count`, `blockDim.x = K * 32`.
+  - CUDA multi-entry upper-layer descent.
+  - Launch mapping: `grid.x = query_count`, `grid.y = ceil(entry_count / warps_per_block)`.
   - Each warp executes one independent greedy descent.
   - Warp-shuffle reduction computes L2 distance cooperatively across dimensions.
 
 - `tests/week2_parity.cpp`
   - Builds a deterministic synthetic HNSW-like graph.
-  - Checks that best-of-K entry distance is monotonic for `K = 1, 4, 16`.
-  - Runs layer-0 search from K entry points and prints recall@5.
+  - Checks that best entry distance is monotonic for `entry_count = 1, 4, 16`.
+  - Runs layer-0 search from the selected entry points and prints recall@5.
   - If CUDA is available, compares GPU and CPU entry points, distances, and downstream layer-0 results.
 
 ## Build and Test

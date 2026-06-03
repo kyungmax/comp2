@@ -48,5 +48,10 @@ add_executable(week2_parity
 )
 target_link_libraries(week2_parity PRIVATE hnsw_week2_gpu)
 
+add_executable(bench_gpu_upper_descent
+    src/bench_gpu_upper_descent.cpp
+)
+target_link_libraries(bench_gpu_upper_descent PRIVATE hnsw_week2_gpu)
+
 enable_testing()
 add_test(NAME week2_parity COMMAND week2_parity)

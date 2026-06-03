@@ -4,17 +4,23 @@
 
 Week 2 in the proposal is:
 
-- implement GPU K-way upper-layer descent;
+- implement GPU multi-entry upper-layer descent;
 - map one query to one CUDA block;
 - map one independent descent to one warp;
-- keep base-layer search unchanged except for accepting K candidate entry points;
-- verify CPU/GPU parity for `K in {1, 4, 16}`.
+- keep base-layer search unchanged except for accepting candidate entry points;
+- verify CPU/GPU parity for `entry_count in {1, 4, 16}`.
+
+Terminology:
+
+- `result_k`: final nearest-neighbor count used by recall@k.
+- `entry_count`: number of upper-layer entry candidates evaluated before selecting the handoff entry.
+- `upper_window`: number of highest HNSW layers included in the upper-layer candidate pool.
 
 The current code implements that scope as a standalone HNSW-like module:
 
 - CPU greedy upper-layer descent: `greedy_upper_descent`
-- CPU K-way descent: `cpu_kway_upper_descent`
-- CUDA K-way descent: `gpu_kway_upper_descent`
+- CPU multi-entry descent: `cpu_kway_upper_descent`
+- CUDA multi-entry descent: `gpu_kway_upper_descent`
 - deduplicated layer-0 handoff: `entry_points_from_descent` plus `search_layer0`
 - parity harness: `week2_parity`
 
@@ -43,4 +49,4 @@ cmake --build build-cuda -j
 ctest --test-dir build-cuda --output-on-failure
 ```
 
-If CUDA is enabled, `week2_parity` compares GPU descent output against CPU descent output for every query and every seed at `K = 1, 4, 16`.
+If CUDA is enabled, `week2_parity` compares GPU descent output against CPU descent output for every query and every seed at `entry_count = 1, 4, 16`.
